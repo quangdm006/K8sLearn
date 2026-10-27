@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: k8s-learn
+resources:
+  - k8s-learn.yaml
+images:
+  # Đổi thành image bạn đã build/đẩy lên registry, ví dụ ghcr.io/<ten>/k8s-learn:1.0.0
+  - name: k8s-learn
+    newName: k8s-learn
+    newTag: "1.0.0"

@@ -1,0 +1,40 @@
+# Bonus: Prometheus Operator (kube-prometheus-stack, release "monitoring") thu thập metric của podinfo.
+# Lưu ý: NetworkPolicy của dự án đang chặn mọi ingress khác — cần mở thêm luồng từ namespace monitoring.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: shop
+  namespace: capstone
+  labels:
+    release: monitoring
+spec:
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values: ["frontend", "backend"]
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 30s
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-prometheus
+  namespace: capstone
+spec:
+  podSelector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values: ["frontend", "backend"]
+  policyTypes: ["Ingress"]
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+      ports:
+        - protocol: TCP
+          port: 9898

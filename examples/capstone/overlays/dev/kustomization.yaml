@@ -1,0 +1,25 @@
+# Môi trường dev: ít replicas, lời chào riêng để dễ nhận biết.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+replicas:
+  - name: backend
+    count: 1
+patches:
+  # Chỉ còn 1 replica mà giữ PDB minAvailable: 1 thì không bao giờ drain được node.
+  - target:
+      kind: PodDisruptionBudget
+      name: backend
+    patch: |-
+      - op: remove
+        path: /spec/minAvailable
+      - op: add
+        path: /spec/maxUnavailable
+        value: 1
+configMapGenerator:
+  - name: frontend-config
+    behavior: merge
+    literals:
+      - PODINFO_UI_MESSAGE=[DEV] Dự án cuối khóa K8s Learn
+      - PODINFO_UI_COLOR=#b45309

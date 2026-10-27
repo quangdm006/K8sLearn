@@ -1,0 +1,19 @@
+# Bonus: triển khai dự án bằng GitOps. Đổi repoURL thành repository của bạn.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: capstone-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/<ban>/<repo>.git
+    targetRevision: main
+    path: examples/capstone/overlays/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: capstone
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

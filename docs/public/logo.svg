@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="K8s Learn">
+  <path fill="#326ce5" d="M32 2.5 55.4 13.8l5.8 25.3-16.2 20.3H19L2.8 39.1l5.8-25.3z"/>
+  <g fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.6">
+    <circle cx="32" cy="33" r="10.5"/>
+    <path d="M32 14.5v8M32 43.5v8M13.5 33h8M42.5 33h8M18.9 19.9l5.7 5.7M39.4 40.4l5.7 5.7M45.1 19.9l-5.7 5.7M24.6 40.4l-5.7 5.7"/>
+  </g>
+  <circle cx="32" cy="33" r="3.6" fill="#fff"/>
+</svg>
